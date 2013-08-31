@@ -20,7 +20,6 @@ class TestController
     @ws.close()
 
   onSocketOpen: ->
-    console.log 'Connected'
     @view.showInfo 'Connected'
 
   onSocketClose: ->
@@ -33,7 +32,6 @@ class TestController
     dataArray = data.split ','
     status = "Server: #{data}"
     json = JSON.parse data
-    if json[0].posDisplay?
-      @hand.x = parseInt(json[0].posDisplay.x)
-      @hand.y = parseInt(json[0].posDisplay.y)
+    @hand.x = parseInt(json.RightHand.X)
+    @hand.y = parseInt(json.RightHand.Y)
     @view.showInfo status
