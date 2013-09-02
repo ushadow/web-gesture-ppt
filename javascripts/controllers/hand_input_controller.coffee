@@ -2,9 +2,8 @@ class TestController
   constructor: (@view, @ws_uri)->
     view.onConnect = => @connect()
     view.onDisconnect = => @disconnect()
-    @hand = {x: 0, y: 0}
 
-    draw = => @view.drawRect @hand.x, @hand.y
+    draw = => @view.update @handEvent
     setInterval draw, 100
 
   connect: ->
@@ -31,7 +30,5 @@ class TestController
   onMessage: (data) ->
     dataArray = data.split ','
     status = "Server: #{data}"
-    json = JSON.parse data
-    @hand.x = parseInt(json.RightHand.X)
-    @hand.y = parseInt(json.RightHand.Y)
+    @handEvent = JSON.parse data
     @view.showInfo status

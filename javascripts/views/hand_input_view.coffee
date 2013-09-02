@@ -24,16 +24,27 @@ class HandInputView
       when 'Disconnected'
         @$button.html 'Connect'
 
-  # Draws a rectangle with top left corner at (x, y).
+  # Update the canvas to visualize the new hand event.
   #
   # @param {int} x screen coordinate where top left is the origin.
   # @param {int} y screen coordinate where top left is the origin.
-  drawRect: (x, y) ->
+  update: (handEvent) ->
+    return unless handEvent?
     context = @canvas.getContext '2d'
     context.clearRect 0, 0, @canvasWidth, @canvasHeight
-    context.fillStyle = '#ff0000'
+    rightX = parseInt handEvent.RightHand.X
+    rightY = parseInt handEvent.RightHand.Y
+    @drawHand context, rightX, rightY, '#ff0000'
+
+    leftX = parseInt handEvent.LeftHand.X
+    leftY = parseInt handEvent.LeftHand.Y
+    @drawHand context, leftX, leftY, '#00ff00'
+
+  drawHand: (context, x, y, color) ->
+    context.fillStyle = color
     [canvasX, canvasY] = @toCanvasCoord x, y
     context.fillRect canvasX, canvasY, @rectWidth, @rectWidth
+
 
   onButtonClick: ->
     if @$button.html() is 'Connect'
