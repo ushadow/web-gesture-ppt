@@ -6,8 +6,6 @@ The code is developed and tested on Ubuntu 13.04 and Windows 7.
 
 # Setup
 
-## Start up the web server.
-
 Shotgun is used to reload the application every time a new request comes in during 
 development:
 
