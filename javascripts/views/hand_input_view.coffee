@@ -7,14 +7,12 @@ class HandInputView
     @onConnect = ->
     @onDisconnect = ->
 
-    @$status = $('#status')
+    @$status = $('#status-text')
     @$button = $('button')
     @$button.click => @onButtonClick()
-    @canvas = document.getElementById 'canvas'
-    @canvas.width = window.innerWidth - @canvas.offsetLeft * 2
-    @canvas.height = window.innerHeight - @canvas.offsetTop
-    @canvasHeight = @canvas.clientHeight
-    @canvasWidth = @canvas.clientWidth
+
+  ws_addr: ->
+    $('#ws-addr').attr('value')
 
   showInfo: (message) ->
     @$status.text message

@@ -1,15 +1,32 @@
 class TestController
-  constructor: (@view, @ws_uri)->
+  constructor: (@view)->
     view.onConnect = => @connect()
     view.onDisconnect = => @disconnect()
 
-    draw = => @view.update @handEvent
-    setInterval draw, 100
+    @pointer = document.createElement('div')
+    @pointer.id = 'pointer'
+    @pointer.style.position = 'absolute'
+    @pointer.style.visibility = 'hidden'
+    @pointer.style.zIndex = 50
+    @pointer.style.opacity = 0.7
+    @pointer.style.backgroundColor = '#00aaff'
+    @pointer.style.width = '30px'
+    @pointer.style.height = '30px'
+    @pointer.style.top = '100px'
+    @pointer.style.left = '100px'
+
+    body = document.body
+    body.appendChild(@pointer)
+
+    revealDiv = $('.reveal')
+    @presentationWidth = revealDiv.width()
+    @presentationHeight = revealDiv.height()
 
   connect: ->
     @view.showInfo 'Connecting'
-
-    @ws = new WebSocket(@ws_uri)
+   
+    ws_uri = "ws://#{@view.ws_addr()}"
+    @ws = new WebSocket(ws_uri)
     @ws.onopen = => @onSocketOpen()
     @ws.onclose = => @onSocketClose()
     @ws.onerror = (errorMessage) => @onSocketError errorMessage
@@ -28,7 +45,24 @@ class TestController
     @view.showInfo "WebSocket Error: #{errorMessage}"
 
   onMessage: (data) ->
-    dataArray = data.split ','
     status = "Server: #{data}"
-    @handEvent = JSON.parse data
-    @view.showInfo status
+    event = JSON.parse data
+    gestureJson = event.gestureEvent
+    return unless gestureJson.length
+
+    gestureEvent = JSON.parse gestureJson
+    switch gestureEvent.gesture
+      when 'SwipeLeft' then @control = -> Reveal.right()
+      when 'SwipeRight' then @control = -> Reveal.left()
+      when 'Point' then @updatePointer(event.rightHandPos)
+      when 'Rest'
+        @pointer.style.visibility = 'hidden'
+        if @control?
+          @control()
+          @control = null
+
+  updatePointer: (pos) ->
+    @pointer.style.left = pos.x * @presentationWidth / 640 + 'px'
+    @pointer.style.top = pos.y * @presentationHeight / 480 + 'px'
+    @pointer.style.visibility = 'visible'
+

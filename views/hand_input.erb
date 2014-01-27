@@ -2,19 +2,39 @@
 <html>
   <head>
     <title>Kinect Hand Input</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, 
+    maximum-scale=1.0, user-scalable=no"/>
     <link rel="stylesheet" href="application.css" type="text/css" />
-    <script src="jquery.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="css/reveal.min.css"/>
+    <link rel="stylesheet" href="css/theme/default.css" id="theme"/>
+    <script src="js/jquery.js" type="text/javascript"></script>
     <script src="application.js" type="text/javascript"></script>
   </head>
   <body>
-    <h1>Kinect Hand Input</h1>
-    <p>
+    <div class="reveal">
       <button>Connect</button>
-    </p>
-    <p>
-      <label>Status:</label>
-      <span id="status"></span>
-    </p>
-    <canvas id="canvas" width="640" height="480"></canvas>
+      <input id="ws-addr" type="text" value="127.0.0.1:8080"/>
+      <label id="status-label" class="status">Status:</label>
+      <span id="status-text"></span>
+      <div class="slides">
+        <section>
+        <h1>Realtime Gesture Recognition</h1>
+        </section>
+        <section>
+        <h2>System Overview</h2>
+        </section>
+        <section>
+        <h2>Hand Tracking</h2>
+        </section>
+        <section>
+        <h2>Features</h2>
+        </section>
+      </div>
+    </div>
+    <script src="js/reveal.min.js"></script>
+    <script src="js/head.min.js"></script>
+    <script>
+      Reveal.initialize();
+    </script>
   </body>
 </html>
