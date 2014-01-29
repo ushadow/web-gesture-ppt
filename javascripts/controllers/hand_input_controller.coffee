@@ -51,15 +51,15 @@ class TestController
     return unless gestureJson.length
 
     gestureEvent = JSON.parse gestureJson
-    switch gestureEvent.gesture
-      when 'SwipeLeft' then @control = -> Reveal.right()
-      when 'SwipeRight' then @control = -> Reveal.left()
-      when 'Point' then @updatePointer(event.rightHandPos)
-      when 'Rest'
-        @pointer.style.visibility = 'hidden'
-        if @control?
-          @control()
-          @control = null
+    switch gestureEvent.eventType
+      when 'StopGesture'
+        switch gestureEvent.gesture
+          when 'SwipeLeft' then Reveal.right()
+          when 'SwipeRight' then Reveal.left()
+      else
+        switch gestureEvent.gesture
+          when 'Point' then @updatePointer(event.rightHandPos)
+          when 'Rest' then @pointer.style.visibility = 'hidden'
 
   updatePointer: (pos) ->
     @pointer.style.left = pos.x * @presentationWidth / 640 + 'px'
