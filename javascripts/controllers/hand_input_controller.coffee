@@ -1,26 +1,7 @@
-class TestController
+class HandInputController
   constructor: (@view)->
-    view.onConnect = => @connect()
-    view.onDisconnect = => @disconnect()
-
-    @pointer = document.createElement('div')
-    @pointer.id = 'pointer'
-    @pointer.style.position = 'absolute'
-    @pointer.style.visibility = 'hidden'
-    @pointer.style.zIndex = 50
-    @pointer.style.opacity = 0.7
-    @pointer.style.backgroundColor = '#00aaff'
-    @pointer.style.width = '30px'
-    @pointer.style.height = '30px'
-    @pointer.style.top = '100px'
-    @pointer.style.left = '100px'
-
-    body = document.body
-    body.appendChild(@pointer)
-
-    revealDiv = $('.reveal')
-    @presentationWidth = revealDiv.width()
-    @presentationHeight = revealDiv.height()
+    @view.onConnect = => @connect()
+    @view.onDisconnect = => @disconnect()
 
   connect: ->
     @view.showInfo 'Connecting'
@@ -47,7 +28,13 @@ class TestController
   onMessage: (data) ->
     status = "Server: #{data}"
     event = JSON.parse data
-    gestureJson = event.gestureEvent
+    
+    if 'gestureEvent' of event
+      @handleGestureEvent(event.gestureEvent, event.rightHandPos)
+    else if 'speechEvent' of event
+      @handleSpeechEvent()
+  
+  handleGestureEvent: (gestureJson, rightHandPos) ->
     return unless gestureJson.length
 
     gestureEvent = JSON.parse gestureJson
@@ -58,11 +45,11 @@ class TestController
           when 'SwipeRight' then Reveal.left()
       else
         switch gestureEvent.gesture
-          when 'Point' then @updatePointer(event.rightHandPos)
-          when 'Rest' then @pointer.style.visibility = 'hidden'
+          when 'Point' then @view.updateCirclePointer(rightHandPos)
+          when 'PalmUp' then @view.updateSquarePointer(rightHandPos)
+          when 'Rest' then @view.hidePointers()
 
-  updatePointer: (pos) ->
-    @pointer.style.left = pos.x * @presentationWidth / 640 + 'px'
-    @pointer.style.top = pos.y * @presentationHeight / 480 + 'px'
-    @pointer.style.visibility = 'visible'
+  handSpeechEvent: ->
+
+
 

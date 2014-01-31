@@ -11,6 +11,13 @@ class HandInputView
     @$button = $('button')
     @$button.click => @onButtonClick()
 
+    @createSquarePointer()
+    @createCirclePointer()
+
+    revealDiv = $('.reveal')
+    @presentationWidth = revealDiv.width()
+    @presentationHeight = revealDiv.height()
+
   ws_addr: ->
     $('#ws-addr').attr('value')
 
@@ -60,3 +67,62 @@ class HandInputView
     canvasX = x * @canvas.width / @defaultWidth
     canvasY = y * @canvas.height / @defaultHeight
     [canvasX, canvasY]
+    
+  createSquarePointer: ->
+    @square = document.createElement('div')
+    @square.id = 'square-pointer'
+    @square.className = 'pointer'
+    document.body.appendChild(@square)
+    
+    @squareX = -1
+    @squareY = -1
+
+  createCirclePointer: ->
+    @circle = document.createElement('div')
+    @circle.id = 'circle-pointer'
+    @circle.className = 'pointer'
+
+    document.body.appendChild(@circle)
+
+  updateSquarePointer: (pos) ->
+    x = pos.x * @presentationWidth / 640
+    y = pos.y * @presentationHeight / 480
+    @updatePointer @square, x, y
+    if @squareX >= 0
+      @videoSeek (x - @squareX)
+    @squareX = x
+    @squareY = y
+
+    @hide @circle
+
+  # Hides an element.
+  hide: (e) ->
+    e.style.visibility = 'hidden'
+
+  updateCirclePointer: (pos) ->
+    x = pos.x * @presentationWidth / 640
+    y = pos.y * @presentationHeight / 480
+    @updatePointer @circle, x, y
+    @hide @square
+
+  updatePointer: (pointer, x, y) ->
+    pointer.style.left = x + 'px'
+    pointer.style.top = y + 'px'
+    pointer.style.visibility = 'visible'
+
+  hidePointers: ->
+    @hide @square
+    @hide @circle
+
+  videoSeek: (pixelStep) ->
+    unless @video?
+      slide = Reveal.getCurrentSlide()
+      @video = slide.querySelector('video')
+   
+    unless @video?
+      return
+
+    videoWidth = @video.width
+    timeStep = pixelStep * @video.duration / videoWidth
+    @video.currentTime += timeStep
+

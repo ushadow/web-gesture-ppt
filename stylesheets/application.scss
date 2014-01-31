@@ -9,6 +9,20 @@
  font-size: 11pt;
 }
 
-#pointer {
+#circle-pointer {
   border-radius: 25px;
+  background-color: #00aaff;
+}
+
+#square-pointer {
+  background-color: #ff00aa;
+}
+
+.pointer {
+  position: absolute;
+  visibility: hidden;
+  z-index: 50;
+  opacity: 0.7;
+  width: 30px;
+  height: 30px;
 }
