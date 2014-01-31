@@ -1,40 +1,40 @@
 class HandInputController
-  constructor: (@view)->
-    @view.onConnect = => @connect()
-    @view.onDisconnect = => @disconnect()
+  constructor: (@_view)->
+    @_view.onConnect = => @connect()
+    @_view.onDisconnect = => @disconnect()
 
   connect: ->
-    @view.showInfo 'Connecting'
+    @_view.showInfo 'Connecting'
    
-    ws_uri = "ws://#{@view.ws_addr()}"
-    @ws = new WebSocket(ws_uri)
-    @ws.onopen = => @onSocketOpen()
-    @ws.onclose = => @onSocketClose()
-    @ws.onerror = (errorMessage) => @onSocketError errorMessage
-    @ws.onmessage = (event) => @onMessage event.data
+    wsUri = "ws://#{@_view.wsAddr()}"
+    @_ws = new WebSocket(wsUri)
+    @_ws.onopen = => @onSocketOpen()
+    @_ws.onclose = => @onSocketClose()
+    @_ws.onerror = (errorMessage) => @onSocketError errorMessage
+    @_ws.onmessage = (event) => @onMessage event.data
 
   disconnect: ->
-    @ws.close()
+    @_ws.close()
 
   onSocketOpen: ->
-    @view.showInfo 'Connected'
+    @_view.showInfo 'Connected'
 
   onSocketClose: ->
-    @view.showInfo 'Disconnected'
+    @_view.showInfo 'Disconnected'
 
   onSocketError: (errorMessage) ->
-    @view.showInfo "WebSocket Error: #{errorMessage}"
+    @_view.showInfo "WebSocket Error: #{errorMessage}"
 
   onMessage: (data) ->
     status = "Server: #{data}"
     event = JSON.parse data
     
     if 'gestureEvent' of event
-      @handleGestureEvent(event.gestureEvent, event.rightHandPos)
+      @_onGestureEvent(event.gestureEvent, event.rightHandPos)
     else if 'speechEvent' of event
-      @handleSpeechEvent()
+      @_onSpeechEvent(event.speechEvent)
   
-  handleGestureEvent: (gestureJson, rightHandPos) ->
+  _onGestureEvent: (gestureJson, rightHandPos) ->
     return unless gestureJson.length
 
     gestureEvent = JSON.parse gestureJson
@@ -45,11 +45,12 @@ class HandInputController
           when 'SwipeRight' then Reveal.left()
       else
         switch gestureEvent.gesture
-          when 'Point' then @view.updateCirclePointer(rightHandPos)
-          when 'PalmUp' then @view.updateSquarePointer(rightHandPos)
-          when 'Rest' then @view.hidePointers()
+          when 'Point' then @_view.updateCirclePointer(rightHandPos)
+          when 'PalmUp' then @_view.updateSquarePointer(rightHandPos)
+          when 'Rest' then @_view.reset()
 
-  handSpeechEvent: ->
-
-
+  _onSpeechEvent: (speechText) ->
+    switch speechText
+      when 'MORE'
+        @_view.onMore()
 

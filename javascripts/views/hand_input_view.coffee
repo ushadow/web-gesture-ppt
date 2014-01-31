@@ -1,24 +1,25 @@
 class HandInputView
-  constructor: ->
-    @rectWidth = 30
-    @defaultWidth = 640
-    @defaultHeight = 480
+  @_SENSOR_WIDTH:  640
+  @_SENSOR_HEIGHT: 480
 
+  constructor: ->
     @onConnect = ->
     @onDisconnect = ->
 
     @$status = $('#status-text')
     @$button = $('button')
-    @$button.click => @onButtonClick()
+    @$button.click => @_onButtonClick()
 
-    @createSquarePointer()
-    @createCirclePointer()
+    @_createSquarePointer()
+    @_createCirclePointer()
 
     revealDiv = $('.reveal')
-    @presentationWidth = revealDiv.width()
-    @presentationHeight = revealDiv.height()
+    @_viewWidth = revealDiv.width()
+    @_viewHeight = revealDiv.height()
+   
+    @_multiplier = 1
 
-  ws_addr: ->
+  wsAddr: ->
     $('#ws-addr').attr('value')
 
   showInfo: (message) ->
@@ -29,92 +30,63 @@ class HandInputView
       when 'Disconnected'
         @$button.html 'Connect'
 
-  # Update the canvas to visualize the new hand event.
-  #
-  # @param {int} x screen coordinate where top left is the origin.
-  # @param {int} y screen coordinate where top left is the origin.
-  update: (handEvent) ->
-    return unless handEvent?
-    context = @canvas.getContext '2d'
-    context.clearRect 0, 0, @canvasWidth, @canvasHeight
-    rightX = parseInt handEvent.RightHand.X
-    rightY = parseInt handEvent.RightHand.Y
-    @drawHand context, rightX, rightY, '#ff0000'
+  updateSquarePointer: (pos) ->
+    x = pos.x * @_viewWidth / HandInputView._SENSOR_WIDTH
+    y = pos.y * @_viewHeight / HandInputView._SENSOR_HEIGHT
+    @_updatePointer @_square, x, y
+    if @_squareX >= 0
+      @_videoSeek (x - @_squareX)
+    @_squareX = x
+    @_squareY = y
 
-    leftX = parseInt handEvent.LeftHand.X
-    leftY = parseInt handEvent.LeftHand.Y
-    @drawHand context, leftX, leftY, '#00ff00'
+    @_hide @_circle
 
-  drawHand: (context, x, y, color) ->
-    context.fillStyle = color
-    [canvasX, canvasY] = @toCanvasCoord x, y
-    context.fillRect canvasX, canvasY, @rectWidth, @rectWidth
+  updateCirclePointer: (pos) ->
+    x = pos.x * @_viewWidth / HandInputView._SENSOR_WIDTH
+    y = pos.y * @_viewHeight / HandInputView._SENSOR_HEIGHT
+    @_updatePointer @_circle, x, y
+    @_hide @_square
 
+  reset: ->
+    @_hide @_square
+    @_hide @_circle
+    @_multiplier = 1
 
-  onButtonClick: ->
+  onMore: ->
+    @_multiplier *= 2
+
+  _onButtonClick: ->
     if @$button.html() is 'Connect'
       @onConnect()
     else
       @onDisconnect()
 
-  # Converts default coordinate to canvas coordinate.
-  #
-  # @param {int} x cordinate in a 640 X 480 image.
-  # @param {int} y screen coordinate where top left is the origin.
-  toCanvasCoord: (x, y) ->
-    # window.screenX and window.screenY are the position of the browser window
-    # on the screen.
-    canvasX = x * @canvas.width / @defaultWidth
-    canvasY = y * @canvas.height / @defaultHeight
-    [canvasX, canvasY]
+  _createSquarePointer: ->
+    @_square = document.createElement('div')
+    @_square.id = 'square-pointer'
+    @_square.className = 'pointer'
+    document.body.appendChild(@_square)
     
-  createSquarePointer: ->
-    @square = document.createElement('div')
-    @square.id = 'square-pointer'
-    @square.className = 'pointer'
-    document.body.appendChild(@square)
-    
-    @squareX = -1
-    @squareY = -1
+    @_squareX = -1
+    @_squareY = -1
 
-  createCirclePointer: ->
-    @circle = document.createElement('div')
-    @circle.id = 'circle-pointer'
-    @circle.className = 'pointer'
+  _createCirclePointer: ->
+    @_circle = document.createElement('div')
+    @_circle.id = 'circle-pointer'
+    @_circle.className = 'pointer'
 
-    document.body.appendChild(@circle)
-
-  updateSquarePointer: (pos) ->
-    x = pos.x * @presentationWidth / 640
-    y = pos.y * @presentationHeight / 480
-    @updatePointer @square, x, y
-    if @squareX >= 0
-      @videoSeek (x - @squareX)
-    @squareX = x
-    @squareY = y
-
-    @hide @circle
+    document.body.appendChild(@_circle)
 
   # Hides an element.
-  hide: (e) ->
+  _hide: (e) ->
     e.style.visibility = 'hidden'
 
-  updateCirclePointer: (pos) ->
-    x = pos.x * @presentationWidth / 640
-    y = pos.y * @presentationHeight / 480
-    @updatePointer @circle, x, y
-    @hide @square
-
-  updatePointer: (pointer, x, y) ->
+  _updatePointer: (pointer, x, y) ->
     pointer.style.left = x + 'px'
     pointer.style.top = y + 'px'
     pointer.style.visibility = 'visible'
 
-  hidePointers: ->
-    @hide @square
-    @hide @circle
-
-  videoSeek: (pixelStep) ->
+  _videoSeek: (pixelStep) ->
     unless @video?
       slide = Reveal.getCurrentSlide()
       @video = slide.querySelector('video')
@@ -123,6 +95,5 @@ class HandInputView
       return
 
     videoWidth = @video.width
-    timeStep = pixelStep * @video.duration / videoWidth
+    timeStep = pixelStep * @video.duration * @_multiplier / videoWidth
     @video.currentTime += timeStep
-
