@@ -43,6 +43,8 @@ class HandInputController
         switch gestureEvent.gesture
           when 'SwipeLeft' then Reveal.right()
           when 'SwipeRight' then Reveal.left()
+          when 'Circle' then Reveal.toggleOverview()
+          when 'ShakeHand' then Reveal.togglePause()
       else
         switch gestureEvent.gesture
           when 'Point' then @_view.updateCirclePointer(rightHandPos)
