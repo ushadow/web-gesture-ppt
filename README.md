@@ -1,8 +1,9 @@
-A web application that uses gesture as input on a tabletop.
+A web application that uses gesture as input to HTML5 based presentation framework.
 
-# OS
+# Development environment
 
-The code is developed and tested on Ubuntu 13.04 and Windows 7.
+* The code is developed and tested on Ubuntu 13.04 and Windows 7 64bit.
+* ruby 2.0.0p247
 
 # Setup
 
