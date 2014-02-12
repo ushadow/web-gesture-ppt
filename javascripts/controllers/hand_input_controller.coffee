@@ -26,29 +26,26 @@ class HandInputController
     @_view.showInfo "WebSocket Error: #{errorMessage}"
 
   onMessage: (data) ->
-    status = "Server: #{data}"
-    event = JSON.parse data
-    
-    if 'gestureEvent' of event
-      @_onGestureEvent(event.gestureEvent, event.rightHandPos)
-    else if 'speechEvent' of event
-      @_onSpeechEvent(event.speechEvent)
+    if data?.length
+      event = JSON.parse data
+      
+      if 'gesture' of event
+        @_onGestureEvent(event)
+      else if 'speechEvent' of event
+        @_onSpeechEvent(event.speechEvent)
   
-  _onGestureEvent: (gestureJson, rightHandPos) ->
-    return unless gestureJson.length
-
-    gestureEvent = JSON.parse gestureJson
-    switch gestureEvent.eventType
-      when 'StopGesture'
-        switch gestureEvent.gesture
+  _onGestureEvent: (ge) ->
+    switch ge.eventType
+      when 'StartPostStroke'
+        switch ge.gesture
           when 'SwipeLeft' then Reveal.right()
           when 'SwipeRight' then Reveal.left()
           when 'Circle' then Reveal.toggleOverview()
           when 'ShakeHand' then Reveal.togglePause()
       else
-        switch gestureEvent.gesture
-          when 'Point' then @_view.updateCirclePointer(rightHandPos)
-          when 'PalmUp' then @_view.updateSquarePointer(rightHandPos)
+        switch ge.gesture
+          when 'Point' then @_view.updateCirclePointer(ge.rightX, ge.rightY)
+          when 'PalmUp' then @_view.updateSquarePointer(ge.rightX, ge.rightY)
           when 'Rest' then @_view.reset()
 
   _onSpeechEvent: (speechText) ->

@@ -1,6 +1,5 @@
 class HandInputView
-  @_SENSOR_WIDTH:  640
-  @_SENSOR_HEIGHT: 480
+  @_USER_WIDTH: 1 # m 
 
   constructor: ->
     @onConnect = ->
@@ -30,9 +29,9 @@ class HandInputView
       when 'Disconnected'
         @$button.html 'Connect'
 
-  updateSquarePointer: (pos) ->
-    x = pos.x * @_viewWidth / HandInputView._SENSOR_WIDTH
-    y = pos.y * @_viewHeight / HandInputView._SENSOR_HEIGHT
+  updateSquarePointer: (x, y) ->
+    x = @_viewWidth / 2 + x * @_viewWidth / HandInputView._USER_WIDTH
+    y = @_viewHeight / 2 - y * @_viewHeight / HandInputView._USER_WIDTH
     @_updatePointer @_square, x, y
     if @_squareX >= 0
       @_videoSeek (x - @_squareX)
@@ -41,9 +40,12 @@ class HandInputView
 
     @_hide @_circle
 
-  updateCirclePointer: (pos) ->
-    x = pos.x * @_viewWidth / HandInputView._SENSOR_WIDTH
-    y = pos.y * @_viewHeight / HandInputView._SENSOR_HEIGHT
+  ###
+  # @param {pos} x, y positions relative to the shoulder in world coordinate. 
+  ###
+  updateCirclePointer: (x, y) ->
+    x = @_viewWidth / 2 + x * @_viewWidth / HandInputView._USER_WIDTH
+    y = @_viewHeight / 2 - y * @_viewHeight / HandInputView._USER_WIDTH
     @_updatePointer @_circle, x, y
     @_hide @_square
 
