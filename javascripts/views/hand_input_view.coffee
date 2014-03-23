@@ -57,6 +57,23 @@ class HandInputView
   onMore: ->
     @_multiplier *= 2
 
+  onLess: ->
+    @_multiplier /= 2
+
+  onShowSlide: ->
+    rect = @_circle.getBoundingClientRect()
+    elem = document.elementFromPoint(rect.left, rect.top)
+    regex = /section/gi
+    elem = @_upToElement elem, regex
+    console.log elem
+    if elem and elem.nodeName.match regex
+        h = parseInt(elem.getAttribute('data-index-h'), 10)
+        v = parseInt(elem.getAttribute('data-index-h'), 10)
+        Reveal.slide(h, v)
+        if Reveal.isOverview
+          Reveal.toggleOverview()
+
+
   _onButtonClick: ->
     if @$button.html() is 'Connect'
       @onConnect()
@@ -99,3 +116,9 @@ class HandInputView
     videoWidth = @video.width
     timeStep = pixelStep * @video.duration * @_multiplier / videoWidth
     @video.currentTime += timeStep
+
+  _upToElement: (el, tagNameRegex) ->
+    while el && !el.nodeName.match(tagNameRegex)
+      el = el.parentNode
+
+    el

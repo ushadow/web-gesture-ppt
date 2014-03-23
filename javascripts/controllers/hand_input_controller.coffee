@@ -1,38 +1,39 @@
 class HandInputController
   constructor: (@_view)->
-    @_view.onConnect = => @connect()
-    @_view.onDisconnect = => @disconnect()
+    @_view.onConnect = => @_connect()
+    @_view.onDisconnect = => @_disconnect()
+    @_currentGesture = ''
 
-  connect: ->
+  _connect: ->
     @_view.showInfo 'Connecting'
    
     wsUri = "ws://#{@_view.wsAddr()}"
     @_ws = new WebSocket(wsUri)
-    @_ws.onopen = => @onSocketOpen()
-    @_ws.onclose = => @onSocketClose()
-    @_ws.onerror = (errorMessage) => @onSocketError errorMessage
-    @_ws.onmessage = (event) => @onMessage event.data
+    @_ws.onopen = => @_onSocketOpen()
+    @_ws.onclose = => @_onSocketClose()
+    @_ws.onerror = (errorMessage) => @_onSocketError errorMessage
+    @_ws.onmessage = (event) => @_onMessage event.data
 
-  disconnect: ->
+  _disconnect: ->
     @_ws.close()
 
-  onSocketOpen: ->
+  _onSocketOpen: ->
     @_view.showInfo 'Connected'
 
-  onSocketClose: ->
+  _onSocketClose: ->
     @_view.showInfo 'Disconnected'
 
-  onSocketError: (errorMessage) ->
+  _onSocketError: (errorMessage) ->
     @_view.showInfo "WebSocket Error: #{errorMessage}"
 
-  onMessage: (data) ->
+  _onMessage: (data) ->
     if data?.length
       event = JSON.parse data
       
       if 'gesture' of event
         @_onGestureEvent(event)
-      else if 'speechEvent' of event
-        @_onSpeechEvent(event.speechEvent)
+      else if 'speech' of event
+        @_onSpeechEvent(event.speech)
   
   _onGestureEvent: (ge) ->
     switch ge.eventType
@@ -48,8 +49,14 @@ class HandInputController
           when 'PalmUp' then @_view.updateSquarePointer(ge.rightX, ge.rightY)
           when 'Rest' then @_view.reset()
 
+    @_currentGesture = ge.gesture
+
   _onSpeechEvent: (speechText) ->
     switch speechText
       when 'MORE'
-        @_view.onMore()
+        @_view.onMore() if @_currentGesture is 'PalmUp'
+      when 'LESS'
+        @_view.onLess() if @_currentGesture is 'PalmUp'
+      when 'SHOW'
+        @_view.onShowSlide() if @_currentGesture is 'Point'
 
