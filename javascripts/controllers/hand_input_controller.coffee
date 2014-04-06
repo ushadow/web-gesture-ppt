@@ -39,14 +39,14 @@ class HandInputController
     switch ge.eventType
       when 'StartPostStroke'
         switch ge.gesture
-          when 'SwipeLeft' then Reveal.right()
-          when 'SwipeRight' then Reveal.left()
+          when 'Swipe_Left' then Reveal.right()
+          when 'Swipe_Right' then Reveal.left()
           when 'Circle' then Reveal.toggleOverview()
-          when 'ShakeHand' then Reveal.togglePause()
+          when 'Horizontal_Wave' then Reveal.togglePause()
       else
         switch ge.gesture
           when 'Point' then @_view.updateCirclePointer(ge.rightX, ge.rightY)
-          when 'PalmUp' then @_view.updateSquarePointer(ge.rightX, ge.rightY)
+          when 'Palm_Up' then @_view.updateSquarePointer(ge.rightX, ge.rightY)
           when 'Rest' then @_view.reset()
 
     @_currentGesture = ge.gesture
