@@ -54,9 +54,9 @@ class HandInputController
   _onSpeechEvent: (speechText) ->
     switch speechText
       when 'MORE'
-        @_view.onMore() if @_currentGesture is 'PalmUp'
+        @_view.onMore() if @_currentGesture is 'Palm_Up'
       when 'LESS'
-        @_view.onLess() if @_currentGesture is 'PalmUp'
+        @_view.onLess() if @_currentGesture is 'Palm_Up'
       when 'SHOW'
         @_view.onShowSlide() if @_currentGesture is 'Point'
 
