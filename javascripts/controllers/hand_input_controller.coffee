@@ -41,6 +41,8 @@ class HandInputController
         switch ge.gesture
           when 'Swipe_Left' then Reveal.right()
           when 'Swipe_Right' then Reveal.left()
+          when 'Swipe_Up' then Reveal.down()
+          when 'Swipe_Down' then Reveal.up()
           when 'Circle' then Reveal.toggleOverview()
           when 'Horizontal_Wave' then Reveal.togglePause()
       else
