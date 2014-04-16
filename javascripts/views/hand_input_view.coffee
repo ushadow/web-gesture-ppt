@@ -50,6 +50,7 @@ class HandInputView
     @_hide @_square
 
   reset: ->
+    @_hideMultiplier()
     @_hide @_square
     @_hide @_circle
     @_multiplier = 1
@@ -72,7 +73,6 @@ class HandInputView
         Reveal.slide(h, v)
         if Reveal.isOverview
           Reveal.toggleOverview()
-
 
   _onButtonClick: ->
     if @$button.html() is 'Connect'
@@ -106,16 +106,32 @@ class HandInputView
     pointer.style.visibility = 'visible'
 
   _videoSeek: (pixelStep) ->
-    unless @video?
-      slide = Reveal.getCurrentSlide()
-      @video = slide.querySelector('video')
+    slide = Reveal.getCurrentSlide()
+    video = slide.querySelector('video')
    
-    unless @video?
+    unless video?
       return
 
-    videoWidth = @video.width
-    timeStep = pixelStep * @video.duration * @_multiplier / videoWidth
-    @video.currentTime += timeStep
+    @_showMultiplier video.parentNode
+    videoWidth = video.width
+    timeStep = pixelStep * video.duration * @_multiplier / videoWidth
+    video.currentTime += timeStep
+
+  _showMultiplier: (parent) ->
+    node = parent.querySelector('#multiplier')
+    unless node?
+      node = document.createElement('p')
+      node.id = 'multiplier'
+      parent.appendChild(node)
+
+    node.innerHTML = "X #{@_multiplier}"
+    node.style.visibility = 'visible'
+
+  _hideMultiplier: ->
+    slide = Reveal.getCurrentSlide()
+    node = slide.querySelector('#multiplier')
+    if node?
+      node.style.visibility = 'hidden'
 
   _upToElement: (el, tagNameRegex) ->
     while el && !el.nodeName.match(tagNameRegex)
