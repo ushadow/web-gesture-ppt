@@ -69,7 +69,7 @@ class HandInputView
     console.log elem
     if elem and elem.nodeName.match regex
         h = parseInt(elem.getAttribute('data-index-h'), 10)
-        v = parseInt(elem.getAttribute('data-index-h'), 10)
+        v = parseInt(elem.getAttribute('data-index-v'), 10)
         Reveal.slide(h, v)
         if Reveal.isOverview
           Reveal.toggleOverview()
