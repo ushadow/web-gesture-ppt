@@ -3,6 +3,12 @@ class HandInputController
     @_view.onConnect = => @_connect()
     @_view.onDisconnect = => @_disconnect()
     @_currentGesture = ''
+    gestureConfig = Reveal.getConfig().gesture
+    @_config =
+      mirror: true
+    
+    if (gestureConfig?)
+      @_config[key] = gestureConfig[key] for key of gestureConfig
 
   _connect: ->
     @_view.showInfo 'Connecting'
@@ -39,8 +45,10 @@ class HandInputController
     switch ge.eventType
       when 'StartPostStroke'
         switch ge.gesture
-          when 'Swipe_Left' then Reveal.right()
-          when 'Swipe_Right' then Reveal.left()
+          when 'Swipe_Left'
+            if @_config.mirror then Reveal.right() else Reveal.left()
+          when 'Swipe_Right'
+            if @_config.mirror then Reveal.left() else Reveal.right()
           when 'Swipe_Up' then Reveal.down()
           when 'Swipe_Down' then Reveal.up()
           when 'Circle' then Reveal.toggleOverview()
