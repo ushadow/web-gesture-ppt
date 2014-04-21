@@ -1,3 +1,4 @@
+# Actions directly related to view manipulation.
 class HandInputView
   @_USER_WIDTH: 1 # m 
 
@@ -7,7 +8,7 @@ class HandInputView
 
     @$status = $('#status-text')
     @$button = $('button')
-    @$button.click => @_onButtonClick()
+    @$button.click => @_onConnectButtonClick()
 
     @_createSquarePointer()
     @_createCirclePointer()
@@ -17,6 +18,8 @@ class HandInputView
     @_viewHeight = revealDiv.height()
    
     @_multiplier = 1
+    
+    document.addEventListener('keydown', @_onDocumentKeyDown, false)
 
   wsAddr: ->
     $('#ws-addr').attr('value')
@@ -29,22 +32,24 @@ class HandInputView
       when 'Disconnected'
         @$button.html 'Connect'
 
-  updateSquarePointer: (x, y) ->
-    x = @_viewWidth / 2 + x * @_viewWidth / HandInputView._USER_WIDTH
+  updateSquarePointer: (x, y, mirror) ->
+    factor = if mirror then 1 else -1
+    x = @_viewWidth / 2 + x * @_viewWidth * factor / HandInputView._USER_WIDTH
     y = @_viewHeight / 2 - y * @_viewHeight / HandInputView._USER_WIDTH
     @_updatePointer @_square, x, y
     if @_squareX >= 0
-      @_videoSeek (x - @_squareX)
+      @_videoSeek (x - @_squareX) * factor
     @_squareX = x
     @_squareY = y
 
     @_hide @_circle
 
   ###
-  # @param {pos} x, y positions relative to the shoulder in world coordinate. 
+  # @param {pos} x, y positions relative to the shoulder center in world coordinate. 
   ###
-  updateCirclePointer: (x, y) ->
-    x = @_viewWidth / 2 + x * @_viewWidth / HandInputView._USER_WIDTH
+  updateCirclePointer: (x, y, mirror) ->
+    factor = if mirror then 1 else -1
+    x = @_viewWidth / 2 + x * @_viewWidth  * factor / HandInputView._USER_WIDTH
     y = @_viewHeight / 2 - y * @_viewHeight / HandInputView._USER_WIDTH
     @_updatePointer @_circle, x, y
     @_hide @_square
@@ -74,11 +79,15 @@ class HandInputView
         if Reveal.isOverview
           Reveal.toggleOverview()
 
-  _onButtonClick: ->
+  _onConnectButtonClick: ->
     if @$button.html() is 'Connect'
       @onConnect()
     else
       @onDisconnect()
+  
+  _onDocumentKeyDown: (event) =>
+    switch event.keyCode
+      when 67 then @_onConnectButtonClick()
 
   _createSquarePointer: ->
     @_square = document.createElement('div')

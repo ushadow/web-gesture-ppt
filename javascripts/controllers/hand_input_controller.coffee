@@ -1,3 +1,4 @@
+# Controller for gesture and speech input interaction.
 class HandInputController
   constructor: (@_view)->
     @_view.onConnect = => @_connect()
@@ -55,8 +56,10 @@ class HandInputController
           when 'Horizontal_Wave' then Reveal.togglePause()
       else
         switch ge.gesture
-          when 'Point' then @_view.updateCirclePointer(ge.rightX, ge.rightY)
-          when 'Palm_Up' then @_view.updateSquarePointer(ge.rightX, ge.rightY)
+          when 'Point' then @_view.updateCirclePointer(ge.rightX, ge.rightY,
+                                                       @_config.mirror)
+          when 'Palm_Up' then @_view.updateSquarePointer(ge.rightX, ge.rightY,
+                                                         @_config.mirror)
           when 'Rest' then @_view.reset()
 
     @_currentGesture = ge.gesture
