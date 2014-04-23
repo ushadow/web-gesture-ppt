@@ -57,15 +57,16 @@
         <h2>Contributions</h2>
         <ul>
           <li>Improved hand tracking using gesture salience</li>
-          <li>Handle different <em>forms</em> of gestures under one probabilistic framework</li>
-          <li>Use hidden states to identify gesture phases</li>
+          <li class="fragment">Handle different <em>forms</em> of gestures under one probabilistic framework</li>
+          <li class="fragment">Use hidden states to identify gesture phases
             <ul>
               <li>Alow system to respond more promptly and appropriately according to gesture <em>flow</em></li>
               <li>Gesture spotting</li>
             </ul>
-          <li>Real-time online inference on flattened HMM</li>
-          <li>Collected a new dataset with two <em>forms</em> of gestures</li>
-          <li>Developed a hybrid evaluation metric more relevant to real-time interaction</li>
+          </li>
+          <li class="fragment">Real-time online inference on flattened HMM</li>
+          <li class="fragment">Collected a new dataset with two <em>forms</em> of gestures</li>
+          <li class="fragment">Developed a hybrid evaluation metric more relevant to real-time interaction</li>
         </ul>
         </section>
         <section>
@@ -81,6 +82,8 @@
     <script src="js/head.min.js"></script>
     <script>
       Reveal.initialize({
+        slideNumber: true,
+
         gesture: {
           mirror: false
         }

@@ -52,6 +52,7 @@ class HandInputController
             if @_config.mirror then Reveal.left() else Reveal.right()
           when 'Swipe_Up' then Reveal.down()
           when 'Swipe_Down' then Reveal.up()
+          when 'Next_Point' then Reveal.nextFragment()
           when 'Circle' then Reveal.toggleOverview()
           when 'Horizontal_Wave' then Reveal.togglePause()
       else

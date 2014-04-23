@@ -1,6 +1,8 @@
 # Actions directly related to view manipulation.
 class HandInputView
-  @_USER_WIDTH: 1 # m 
+  @_USER_WIDTH: 500 # mm
+  # Offset from the shoulder center in mm.
+  @_USER_OFFSET_X: 50
 
   constructor: ->
     @onConnect = ->
@@ -33,12 +35,13 @@ class HandInputView
         @$button.html 'Connect'
 
   updateSquarePointer: (x, y, mirror) ->
+    x += HandInputView._USER_OFFSET_X
     factor = if mirror then 1 else -1
-    x = @_viewWidth / 2 + x * @_viewWidth * factor / HandInputView._USER_WIDTH
+    x = x * @_viewWidth * factor / HandInputView._USER_WIDTH
     y = @_viewHeight / 2 - y * @_viewHeight / HandInputView._USER_WIDTH
     @_updatePointer @_square, x, y
     if @_squareX >= 0
-      @_videoSeek (x - @_squareX) * factor
+      @_videoSeek(x - @_squareX)
     @_squareX = x
     @_squareY = y
 
@@ -48,8 +51,9 @@ class HandInputView
   # @param {pos} x, y positions relative to the shoulder center in world coordinate. 
   ###
   updateCirclePointer: (x, y, mirror) ->
+    x += HandInputView._USER_OFFSET_X
     factor = if mirror then 1 else -1
-    x = @_viewWidth / 2 + x * @_viewWidth  * factor / HandInputView._USER_WIDTH
+    x = x * @_viewWidth * factor / HandInputView._USER_WIDTH
     y = @_viewHeight / 2 - y * @_viewHeight / HandInputView._USER_WIDTH
     @_updatePointer @_circle, x, y
     @_hide @_square
