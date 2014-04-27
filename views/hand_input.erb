@@ -23,7 +23,7 @@
         <h2>Ying Yin</h2>
         </section>
         <section>
-        <video width="1280" height="720" muted controls loop data-autoplay>
+        <video width="1280" height="720" muted controls loop preload="auto">
         <source src="media/ironman.mp4" type="video/mp4"> 
         </video>
         </section>
@@ -48,7 +48,7 @@
           <section>
           <h2>Temporal Model of Gestures</h2>
           <p>Pre-stroke -&gt; Nucleus -&gt; Post-stroke</p>
-          <video width="1280" height="720" muted controls loop data-autoplay>
+          <video width="1280" height="720" muted controls loop preload="auto">
           <source src="media/gesture_temporal.mp4" type="video/mp4"> 
           </video>
           </section>
@@ -85,7 +85,8 @@
         slideNumber: true,
 
         gesture: {
-          mirror: false
+          mirror: false,
+          autoCenter: true
         }
       });
     </script>

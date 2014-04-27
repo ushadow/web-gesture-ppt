@@ -7,6 +7,7 @@ class HandInputController
     gestureConfig = Reveal.getConfig().gesture
     @_config =
       mirror: true
+      autoCenter: false
     
     if (gestureConfig?)
       @_config[key] = gestureConfig[key] for key of gestureConfig
@@ -58,9 +59,9 @@ class HandInputController
       else
         switch ge.gesture
           when 'Point' then @_view.updateCirclePointer(ge.rightX, ge.rightY,
-                                                       @_config.mirror)
+              @_config.mirror, @_config.autoCenter)
           when 'Palm_Up' then @_view.updateSquarePointer(ge.rightX, ge.rightY,
-                                                         @_config.mirror)
+              @_config.mirror, @_config.autoCenter)
           when 'Rest' then @_view.reset()
 
     @_currentGesture = ge.gesture

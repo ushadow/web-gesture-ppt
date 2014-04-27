@@ -1,8 +1,9 @@
 # Actions directly related to view manipulation.
 class HandInputView
-  @_USER_WIDTH: 500 # mm
+  # Bigger means slower pointer. 
+  @_POINTER_TOLERANCE: 500 # mm
   # Offset from the shoulder center in mm.
-  @_USER_OFFSET_X: 50
+  @_USER_OFFSET_X: 100
 
   constructor: ->
     @onConnect = ->
@@ -20,6 +21,7 @@ class HandInputView
     @_viewHeight = revealDiv.height()
    
     @_multiplier = 1
+    @_entered = false
     
     document.addEventListener('keydown', @_onDocumentKeyDown, false)
 
@@ -34,13 +36,17 @@ class HandInputView
       when 'Disconnected'
         @$button.html 'Connect'
 
-  updateSquarePointer: (x, y, mirror) ->
-    x += HandInputView._USER_OFFSET_X
+  ###
+  # @param {mirror} true if the user faces the display.
+  ###
+  updateSquarePointer: (x, y, mirror, autoCenter) ->
+    [x, y] = @_centerPosition x, y, autoCenter
     factor = if mirror then 1 else -1
-    x = x * @_viewWidth * factor / HandInputView._USER_WIDTH
-    y = @_viewHeight / 2 - y * @_viewHeight / HandInputView._USER_WIDTH
+    x = @_viewWidth / 2 +
+        x * @_viewWidth * factor / HandInputView._POINTER_TOLERANCE
+    y = @_viewHeight / 2 - y * @_viewHeight / HandInputView._POINTER_TOLERANCE
     @_updatePointer @_square, x, y
-    if @_squareX >= 0
+    if @_squareX >= 0 && Math.abs(x - @_squareX) > Math.abs(y - @_squareY)
       @_videoSeek(x - @_squareX)
     @_squareX = x
     @_squareY = y
@@ -48,13 +54,15 @@ class HandInputView
     @_hide @_circle
 
   ###
-  # @param {pos} x, y positions relative to the shoulder center in world coordinate. 
+  # @param {x} x position relative to the shoulder center in world 
+  #     coordinate. 
   ###
-  updateCirclePointer: (x, y, mirror) ->
-    x += HandInputView._USER_OFFSET_X
+  updateCirclePointer: (x, y, mirror, autoCenter) ->
+    [x, y] = @_centerPosition x, y, autoCenter
     factor = if mirror then 1 else -1
-    x = x * @_viewWidth * factor / HandInputView._USER_WIDTH
-    y = @_viewHeight / 2 - y * @_viewHeight / HandInputView._USER_WIDTH
+    x = @_viewWidth / 2 +
+        x * @_viewWidth * factor / HandInputView._POINTER_TOLERANCE
+    y = @_viewHeight / 2 - y * @_viewHeight / HandInputView._POINTER_TOLERANCE
     @_updatePointer @_circle, x, y
     @_hide @_square
 
@@ -63,6 +71,9 @@ class HandInputView
     @_hide @_square
     @_hide @_circle
     @_multiplier = 1
+    @_entered = false
+    @_squareX = -1
+    @_squareY = -1
 
   onMore: ->
     @_multiplier *= 2
@@ -82,6 +93,18 @@ class HandInputView
         Reveal.slide(h, v)
         if Reveal.isOverview
           Reveal.toggleOverview()
+
+  _centerPosition: (x, y, autoCenter) ->
+    if autoCenter
+      unless @_entered
+        @_entered = true
+        @_enteredX = x
+        @_enteredY = y
+      x -= @_enteredX
+      y -= @_enteredY
+    else
+      x += HandInputView._USER_OFFSET_X
+    [x, y]
 
   _onConnectButtonClick: ->
     if @$button.html() is 'Connect'
@@ -129,6 +152,7 @@ class HandInputView
     videoWidth = video.width
     timeStep = pixelStep * video.duration * @_multiplier / videoWidth
     video.currentTime += timeStep
+    if video.paused then video.play()
 
   _showMultiplier: (parent) ->
     node = parent.querySelector('#multiplier')
