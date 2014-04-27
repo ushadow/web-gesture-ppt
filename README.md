@@ -3,7 +3,7 @@ A web application that uses gesture as input to HTML5 based presentation framewo
 # Development environment
 
 * The code is developed and tested on Ubuntu 13.04 and Windows 7 64bit.
-* ruby 2.0.0p247 ([turial](http://rb-tutorial.herokuapp.com/blog/2012/01/11/setting-up-ruby/) on how to set up ruby)
+* ruby 2.0.0p247 ([tutorial](http://rb-tutorial.herokuapp.com/blog/2012/01/11/setting-up-ruby/) on how to set up ruby)
 
 # Setup
 
