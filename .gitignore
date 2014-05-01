@@ -6,3 +6,5 @@ lib/*
 *.swp
 public/media/*
 !public/media/.gitkeep
+public/plugin/math/*
+!public/plugin/math/math.js
