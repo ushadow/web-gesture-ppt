@@ -22,6 +22,7 @@ class HandInputView
    
     @_multiplier = 1
     @_entered = false
+    @_okEntered = false
     
     document.addEventListener('keydown', @_onDocumentKeyDown, false)
 
@@ -35,6 +36,11 @@ class HandInputView
         @$button.html 'Disconnect'
       when 'Disconnected'
         @$button.html 'Connect'
+
+  onOk: ->
+    unless @_okEntered
+      @_okEntered = true
+      Reveal.down()
 
   ###
   # @param {mirror} true if the user faces the display.
@@ -72,6 +78,7 @@ class HandInputView
     @_hide @_circle
     @_multiplier = 1
     @_entered = false
+    @_okEntered = false
     @_squareX = -1
     @_squareY = -1
 

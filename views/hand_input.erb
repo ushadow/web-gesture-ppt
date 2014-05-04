@@ -18,55 +18,52 @@
       <span id="status-text"></span>
       <div class="slides">
         <section>
-        <h1>Real-time Gesture Recognition for Natural Multimodal 
-          Interaction</h1>
-        <h2>Ying Yin</h2>
+          <h1>Real-time Gesture Recognition for Natural Multimodal 
+            Interaction</h1>
+          <h2>Ying Yin</h2>
         </section>
         <section>
-        <video width="1280" height="720" muted controls loop preload="auto">
-        <source src="media/video/ironman.mp4" type="video/mp4"> 
+        <video controls preload="auto">
+        <source src="media/video/kinect.mp4" type="video/mp4">
         </video>
         </section>
         <section>
-          <section>
-            <h2>Gesture Taxonomy</h2>
-            <ul>
-              <li><em>Form</em>
-              <ul>
-                <li>Path</li>
-                <li>Pose</li>
-              </ul>
-              </li>
-              <li><em>Flow</em>
-              <ul>
-                <li>Discrete</li>
-                <li>Continuous</li>
-              </ul>
-              </li>
-            </ul>
-          </section>
-          <section>
-          <h2>Temporal Model of Gestures</h2>
-          <p>Pre-stroke -&gt; Nucleus -&gt; Post-stroke</p>
-          <video width="1280" height="720" muted controls loop preload="auto">
-          <source src="media/video/gesture_temporal.mp4" type="video/mp4"> 
+          <video width="1280" height="720" controls preload="auto">
+          <source src="media/video/ironman_short.mp4" type="video/mp4"> 
           </video>
           </section>
+        <section data-transition="none">
+          <img src="media/taxonomy.jpg"/>
+        </section>
+        <section data-transition="none">
+          <img src="media/taxonomy1.jpg"/>
+        </section>
+        <section data-transition="none">
+          <img src="media/taxonomy2.jpg"/>
+        </section>
+        <section>
+          <h2>Temporal Model of Gestures</h2>
+          <p>Pre-stroke -&gt; Nucleus -&gt; Post-stroke</p>
+          <video muted controls loop preload="auto">
+          <source src="media/video/gesture_temporal.mp4" type="video/mp4"> 
+          </video>
         </section>
         <section>
         <h2>Contributions</h2>
         <ul>
-          <li>Improved hand tracking using gesture salience</li>
-          <li class="fragment">Handle different <em>forms</em> of gestures in one probabilistic framework</li>
-          <li class="fragment">Use hidden states to identify gesture phases
-            <ul>
-              <li>Alow system to respond promptly and appropriately according to gesture <em>flow</em></li>
-              <li>Gesture spotting</li>
+          <li>Human computer interaction
+            <ul class="fragment">
+              <li>Smoothly handles <em>path</em> and <em>pose</em> gestures</li>
+              <li>Responds to <em>discrete</em> and <em>continous</em> flow gestures appropriately and promptly</li>
             </ul>
           </li>
-          <li class="fragment">Real-time online inference on flattened HMM at 30FPS</li>
-          <li class="fragment">Collected a new dataset with two <em>forms</em> of gestures</li>
-          <li class="fragment">Developed a hybrid evaluation metric more relevant to real-time interaction</li>
+          <li>Machine learning
+            <ul class="fragment">
+              <li>Probabilistic model that unifies recognition of two forms of gestures</li>
+              <li>Use hidden states to identify gesture phases</li>
+              <li>Efficient online inference to achieve a balance between accuracy and responsiveness</li>
+            </u>
+          </li>
         </ul>
         </section>
         <section>
@@ -82,21 +79,14 @@
         <section>
           <section>
             <h2>Horizontal Display</h2>
-            <img src="media/setup1.png"/>
+            <img src="media/tabletop.jpg"/>
           </section>
-          <section>
-            <video data-autoplay>
-            <source src="media/video/five-finger.mp4" type="video/mp4">
-            </video>
+          <section data-transition="none">
+            <img src="media/handtracking.JPG"/>
           </section>
-          <section>
+          <section data-transition="none">
             <video data-autoplay>
             <source src="media/video/pointing.mp4" type="video/mp4">
-            </video>
-          </section>
-          <section>
-            <video data-autoplay>
-            <source src="media/video/checkerboard_flipped.mp4" type="video/mp4">
             </video>
           </section>
         </section>
@@ -112,7 +102,6 @@
             <video data-autoplay>
             <source src="media/video/chairgest_handtracking.mp4" type="video/mp4">
             </video>
-            <p class="fragment">2.7% increase in \(F_1\) score compared with Kinect skeleton tracking</p>
           </section>
         </section>
         <section>
@@ -135,14 +124,17 @@
               </li>
             </ul>
             <p></p>
+          </section>
+          <section>
+            <img src="media/hog.jpg"/>
+          </section>
+          <section data-transition="none">
+            <h2>Feature Vector</h2>
             <div>
             $$\underline{x}_t = \left[ \begin{array}{c}
             \underline{x}_t^M \\
             \underline{x}_t^H \\ \end{array}\right] \in \mathbb{R}^d$$
             </div>
-          </section>
-          <section>
-            <img src="media/hog.jpg"/>
           </section>
         </section>
         <section>
@@ -159,45 +151,45 @@
               </ul>
               <li class="fragment grow">Online real-time recognition [VL/HCC'14]
                 <ul>
-                  <li><em>Simultaneous</em> segmentation and classification</li>
-                  <li>Unified probabilistic framework</li>
+                  <li><em>Simultaneous</em> segmentation and recognition</li>
+                  <li>Unified probabilistic model</li>
                 </ul>
               </li>
             </ul>
           </section>
           <section>
-            <h2>Why Unified Framework</h2>
+            <h2>Why Unified Model</h2>
             <ul>
               <li>Previous work
                 <ul>
-                  <li>Path gestures: HMM or HCRF</li>
-                  <li>Pose gestures: HOG and SVM</li>
+                  <li><em>Path</em> gestures: HMM or HCRF</li>
+                  <li><em>Pose</em> gestures: HOG and SVM</li>
                 </ul>
               </li>
               <li class="fragment">Possible approaches to combine both 
                 <ul>
-                  <li>Classify <em>forms</em> first and use different methods
+                  <li>Classify form first and use different methods
                     <ul>
                       <li class="fragment"><em class="highlight-red">Make early decistions that are hard to correct later</em></li>
                     </ul>
                   </li>
-                  <li class="fragment">Apply different methods simultaneously 
-                  and compute probabilities
+                  <li class="fragment">Apply different methods concurrently 
+                  and compare probabilities
                     <ul>
                       <li class="fragment"><em class="highlight-red">How to compare probabilities from two different models?</em></li>
                     </ul>
                   </li>
                 </ul>
               </li>
-              <li class="fragment"><em class="highlight-green">Unified probabilistic framework  
+              <li class="fragment"><em class="highlight-green">Unified probabilistic model 
                 based on hierarchical HMM</em>
                 <ul>
-                  <li class="fragment"><em class="highlight-green">Different topologies for
+                  <li><em class="highlight-green">Different topologies for
                     different <em>forms</em></em></li>
-                  <li class="fragment"><em class="highlight-green">Comparable probabilities
+                  <li><em class="highlight-green">Comparable probabilities
                   </em></li>
-                  <li class="fragment"><em class="highlight-green">Make soft decisions and propagate posterior probabilities</em>
-                  <li class="fragment"><em class="highlight-green">Until a response is required according to gesture <em>flow</em></em></li>
+                  <li><em class="highlight-green">Make soft decisions and propagate posterior probabilities</em>
+                  <li><em class="highlight-green">Until a response is required according to gesture <em>flow</em></em></li>
                 </ul>
               </li>
             </ul>
@@ -224,7 +216,7 @@
         </section>
         <section>
           <section>
-            <h2>Unified Framework</h2>
+            <h2>Unified Model</h2>
             <ul>
               <li>Train one model per gesture: <em>path</em> and <em>pose</em> gestures</li>
                 <ul>
@@ -332,6 +324,48 @@
           <section data-transition="none">
             <img src="media/gamma2.jpg"/>
           </section>
+        </section>
+        <section>
+        <section data-transition="none">
+        <h2>Simultaneous Segmentation and Recognition - Discrete Flow</h2>
+        <img src="media/circle1.jpg"/>
+        </section>
+        <section data-transition="none">
+        <h2>Simultaneous Segmentation and Recognition - Discrete Flow</h2>
+        <img src="media/circle2.jpg"/>
+        </section>
+        <section data-transition="none">
+        <h2>Simultaneous Segmentation and Recognition - Discrete Flow</h2>
+        <img src="media/circle3.jpg"/>
+        </section>
+        <section data-transition="none">
+        <h2>Simultaneous Segmentation and Recognition - Discrete Flow</h2>
+        <img src="media/circle4.jpg"/>
+        </section>
+        <section data-transition="none">
+        <h2>Simultaneous Segmentation and Recognition - Discrete Flow</h2>
+        <img src="media/circle5.jpg"/>
+        </section>
+        <section data-transition="none">
+        <h2>Simultaneous Segmentation and Recognition - Discrete Flow</h2>
+        <img src="media/circle6.jpg"/>
+        </section>
+        <section data-transition="none">
+        <h2>Simultaneous Segmentation and Recognition - Continuous Flow</h2>
+        <img src="media/point1.jpg"/>
+        </section>
+        <section data-transition="none">
+        <h2>Simultaneous Segmentation and Recognition - Continuous Flow</h2>
+        <img src="media/point2.jpg"/>
+        </section>
+        <section data-transition="none">
+        <h2>Simultaneous Segmentation and Recognition - Continuous Flow</h2>
+        <img src="media/point3.jpg"/>
+        </section>
+        <section data-transition="none">
+        <h2>Simultaneous Segmentation and Recognition - Continuous Flow</h2>
+        <img src="media/point4.jpg"/>
+        </section>
         </section>
         <section>
           <h2>Effect of Lag Time</h2>

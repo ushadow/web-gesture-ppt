@@ -62,6 +62,7 @@ class HandInputController
               @_config.mirror, @_config.autoCenter)
           when 'Palm_Up' then @_view.updateSquarePointer(ge.rightX, ge.rightY,
               @_config.mirror, @_config.autoCenter)
+          when 'OK' then @_view.onOk()
           when 'Rest' then @_view.reset()
 
     @_currentGesture = ge.gesture
