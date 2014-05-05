@@ -23,15 +23,15 @@
           <h2>Ying Yin</h2>
         </section>
         <section>
-        <video controls preload="auto">
-        <source src="media/video/kinect.mp4" type="video/mp4">
-        </video>
+          <video controls preload="auto">
+          <source src="media/video/kinect.mp4" type="video/mp4">
+          </video>
         </section>
         <section>
           <video width="1280" height="720" controls preload="auto">
           <source src="media/video/ironman_short.mp4" type="video/mp4"> 
           </video>
-          </section>
+        </section>
         <section data-transition="none">
           <img src="media/taxonomy.jpg"/>
         </section>
@@ -224,7 +224,7 @@
                 </ul>
               </li>
               <li>Combined the model into a HHMM and flatten into HMM</li>
-              <li>Online inference</li>
+              <li>Fast online inference</li>
             </ul>
           </section>
           <section data-transition="none">
@@ -235,14 +235,24 @@
             <h2>Path Gestures</h2>
             <img src="media/embedded.jpg"/>
           </section>
-          <section>
+          <section data-transition="none">
+            <h2>Path Gestures</h2>
+            <img src="media/embedded_prob.jpg"/>
+          </section>
+          <section data-transition="none">
             <h2>Feature Distributions - Motion</h2>
             <img src="media/motion_hist.jpg"/>
           </section>
-          <section>
+          <section data-transition="none">
             <h2>Feature Distributions - Hand Pose</h2>
             <img src="media/hist_pca.jpg"/>
           </section>
+          <section data-transition="none">
+            <h2>Path Gestures</h2>
+            <img src="media/embedded_gmm.jpg"/>
+          </section>
+        </section>
+        <section>
           <section>
             <h2>Path Gesture</h2>
             <ul>
@@ -252,7 +262,35 @@
                 <li>Two-pass training
                   <ol>
                     <li>Viterbi alignment</li>
+                    <li>Baum-Welch expectation maximization</li>
+                  </ol>
+                </li>
+              </ul>
+            </ul>
+          </section>
+          <section data-transition="none">
+            <img src="media/training1.jpg"/>
+          </section>
+          <section data-transition="none">
+            <img src="media/training2.jpg"/>
+          </section>
+          <section data-transition="none">
+            <img src="media/training3.jpg"/>
+          </section>
+          <section data-transition="none">
+            <h2>Path Gesture</h2>
+            <ul>
+              <li>Training strategies</li>
+              <ul>
+                <li>Embedded training</li>
+                <li>Two-pass training
+                  <ol>
+                    <li>Viterbi alignment</li>
                     <li>Baum-Welch expectation maximization
+                      <ul>
+                        <li>Maximum likelihood estimate </li>
+                      </ul>
+                    </li>
                   </ol>
                 </li>
               </ul>
@@ -270,7 +308,7 @@
               <li>Training strategies
               <ul>
                 <li>Expectation-maximiation for GMM</li>
-                <li>Use Bayesian Information Criterion (BI) to choose the number of mixtures.</li>
+                <li>Use Bayesian Information Criterion (BIC) to choose the number of mixtures.</li>
               </ul>
               </li>
             </ul>
@@ -283,12 +321,15 @@
           </section>
           <section data-transition="none">
           <h2>Combined and Flattened HMM</h2>
-          <img src="media/combined_hmm.jpg"/>
+          <img src="media/combined_hmm1.jpg"/>
           </section>
-          <section>
-            $$
-            t^c(s'|s) = t(s'|s)(1 - t(\text{END}|s)) + t(\text{END}|s)t^c(s')
-            $$
+          <section data-transition="none">
+          <h2>Combined and Flattened HMM</h2>
+          <img src="media/combined_hmm2.jpg"/>
+          </section>
+          <section data-transition="none">
+          <h2>Combined and Flattened HMM</h2>
+          <img src="media/combined_hmm.jpg"/>
           </section>
         </section>
         <section>
@@ -307,65 +348,86 @@
         </section>
         <section>
           <section data-transition="none">
+            <h2>Fixed-Lag Smoothing</h2>
             <img src="media/forward1.jpg"/>
           </section>
           <section data-transition="none">
+            <h2>Fixed-Lag Smoothing</h2>
             <img src="media/forward2.jpg"/>
           </section>
           <section data-transition="none">
+            <h2>Fixed-Lag Smoothing</h2>
             <img src="media/forward3.jpg"/>
           </section>
           <section data-transition="none">
+            <h2>Fixed-Lag Smoothing</h2>
             <img src="media/backward.jpg"/>
           </section>
           <section data-transition="none">
+            <h2>Fixed-Lag Smoothing</h2>
             <img src="media/gamma.jpg"/>
           </section>
           <section data-transition="none">
+            <h2>Fixed-Lag Smoothing</h2>
             <img src="media/gamma2.jpg"/>
+          </section>
+          <section data-transition="none">
+            <h2>Fixed-Lag Smoothing</h2>
+            <ul>
+              <li>Time complexity: \(O(H^2l)\)</li>
+              <li>Space complexity: \(O(Hl)\)</li>
+            </ul>
           </section>
         </section>
         <section>
-        <section data-transition="none">
-        <h2>Simultaneous Segmentation and Recognition - Discrete Flow</h2>
-        <img src="media/circle1.jpg"/>
+          <video muted preload="auto">
+          <source src="media/video/dataset.mp4" type="video/mp4"> 
+          </video>
         </section>
-        <section data-transition="none">
-        <h2>Simultaneous Segmentation and Recognition - Discrete Flow</h2>
-        <img src="media/circle2.jpg"/>
+        <section>
+          <section data-transition="none">
+          <h2>Simultaneous Segmentation and Recognition - Discrete Flow</h2>
+          <img src="media/circle1.jpg"/>
+          </section>
+          <section data-transition="none">
+          <h2>Simultaneous Segmentation and Recognition - Discrete Flow</h2>
+          <img src="media/circle2.jpg"/>
+          </section>
+          <section data-transition="none">
+          <h2>Simultaneous Segmentation and Recognition - Discrete Flow</h2>
+          <img src="media/circle3.jpg"/>
+          </section>
+          <section data-transition="none">
+          <h2>Simultaneous Segmentation and Recognition - Discrete Flow</h2>
+          <img src="media/circle4.jpg"/>
+          </section>
+          <section data-transition="none">
+          <h2>Simultaneous Segmentation and Recognition - Discrete Flow</h2>
+          <img src="media/circle5.jpg"/>
+          </section>
+          <section data-transition="none">
+          <h2>Simultaneous Segmentation and Recognition - Discrete Flow</h2>
+          <img src="media/circle6.jpg"/>
+          </section>
+          <section data-transition="none">
+          <h2>Simultaneous Segmentation and Recognition - Continuous Flow</h2>
+          <img src="media/point1.jpg"/>
+          </section>
+          <section data-transition="none">
+          <h2>Simultaneous Segmentation and Recognition - Continuous Flow</h2>
+          <img src="media/point2.jpg"/>
+          </section>
+          <section data-transition="none">
+          <h2>Simultaneous Segmentation and Recognition - Continuous Flow</h2>
+          <img src="media/point3.jpg"/>
+          </section>
+          <section data-transition="none">
+          <h2>Simultaneous Segmentation and Recognition - Continuous Flow</h2>
+          <img src="media/point4.jpg"/>
+          </section>
         </section>
-        <section data-transition="none">
-        <h2>Simultaneous Segmentation and Recognition - Discrete Flow</h2>
-        <img src="media/circle3.jpg"/>
-        </section>
-        <section data-transition="none">
-        <h2>Simultaneous Segmentation and Recognition - Discrete Flow</h2>
-        <img src="media/circle4.jpg"/>
-        </section>
-        <section data-transition="none">
-        <h2>Simultaneous Segmentation and Recognition - Discrete Flow</h2>
-        <img src="media/circle5.jpg"/>
-        </section>
-        <section data-transition="none">
-        <h2>Simultaneous Segmentation and Recognition - Discrete Flow</h2>
-        <img src="media/circle6.jpg"/>
-        </section>
-        <section data-transition="none">
-        <h2>Simultaneous Segmentation and Recognition - Continuous Flow</h2>
-        <img src="media/point1.jpg"/>
-        </section>
-        <section data-transition="none">
-        <h2>Simultaneous Segmentation and Recognition - Continuous Flow</h2>
-        <img src="media/point2.jpg"/>
-        </section>
-        <section data-transition="none">
-        <h2>Simultaneous Segmentation and Recognition - Continuous Flow</h2>
-        <img src="media/point3.jpg"/>
-        </section>
-        <section data-transition="none">
-        <h2>Simultaneous Segmentation and Recognition - Continuous Flow</h2>
-        <img src="media/point4.jpg"/>
-        </section>
+        <section>
+          <h2>Evaluation</h2>
         </section>
         <section>
           <h2>Effect of Lag Time</h2>
