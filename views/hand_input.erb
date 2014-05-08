@@ -5,16 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, 
     maximum-scale=1.0, user-scalable=no"/>
     <link rel="stylesheet" href="application.css" type="text/css" />
-    <link rel="stylesheet" href="css/reveal.min.css"/>
-    <link rel="stylesheet" href="css/theme/default.css" id="theme"/>
+    <link rel="stylesheet" href="css/reveal.css"/>
+    <link rel="stylesheet" href="css/theme/simple.css" id="theme"/>
     <script src="js/jquery.js" type="text/javascript"></script>
     <script src="application.js" type="text/javascript"></script>
   </head>
   <body>
     <div class="reveal">
       <button>Connect</button>
-      <input id="ws-addr" type="text" value="127.0.0.1:8080"/>
-      <label id="status-label" class="status">Status:</label>
+      <input id="ws-addr" type="text" hidden value="127.0.0.1:8080"/>
       <span id="status-text"></span>
       <div class="slides">
         <section>
@@ -23,12 +22,12 @@
           <h2>Ying Yin</h2>
         </section>
         <section>
-          <video controls preload="auto">
+          <video width="761" controls muted preload="auto">
           <source src="media/video/kinect.mp4" type="video/mp4">
           </video>
         </section>
         <section>
-          <video width="1280" height="720" controls preload="auto">
+          <video width="1280" height="720" muted controls preload="auto">
           <source src="media/video/ironman_short.mp4" type="video/mp4"> 
           </video>
         </section>
@@ -39,29 +38,45 @@
           <img src="media/taxonomy1.jpg"/>
         </section>
         <section data-transition="none">
-          <img src="media/taxonomy2.jpg"/>
+          <img src="media/taxonomy_circle.jpg"/>
+        </section>
+        <section data-transition="none">
+          <img src="media/taxonomy_point.jpg"/>
+        </section>
+        <section data-transition="none">
+          <img src="media/taxonomy_all.jpg"/>
+        </section>
+        <section data-transition="none">
+          <section data-transition="none">
+            <img src="media/taxonomy2.jpg"/>
+          </section>
+          <section>
+            <video width="911" muted controls preload="auto" data-autoplay>
+            <source src="media/video/plane.mp4" type="video/mp4"> 
+            </video>
+          </section>
         </section>
         <section>
           <h2>Temporal Model of Gestures</h2>
-          <p>Pre-stroke -&gt; Nucleus -&gt; Post-stroke</p>
-          <video muted controls loop preload="auto">
+          <h3>Pre-stroke -&gt; Nucleus -&gt; Post-stroke</h3>
+          <video width="610" muted controls preload="auto">
           <source src="media/video/gesture_temporal.mp4" type="video/mp4"> 
           </video>
         </section>
         <section>
         <h2>Contributions</h2>
         <ul>
-          <li>Human computer interaction
+          <li><h3>Human computer interaction</h3>
             <ul class="fragment">
               <li>Smoothly handles <em>path</em> and <em>pose</em> gestures</li>
               <li>Responds to <em>discrete</em> and <em>continous</em> flow gestures appropriately and promptly</li>
             </ul>
           </li>
-          <li>Machine learning
+          <li><h3>Machine learning</h3>
             <ul class="fragment">
-              <li>Probabilistic model that unifies recognition of two forms of gestures</li>
-              <li>Use hidden states to identify gesture phases</li>
-              <li>Efficient online inference to achieve a balance between accuracy and responsiveness</li>
+              <li>Probabilistic model that unifies two forms of gestures</li>
+              <li>Hidden state -&gt; gesture phase -&gt; response timing</li>
+              <li>Achieves balance between accuracy and responsiveness</li>
             </u>
           </li>
         </ul>
@@ -78,7 +93,7 @@
         </section>
         <section>
           <section>
-            <h2>Horizontal Display</h2>
+            <h2>Horizontal Orientation</h2>
             <img src="media/tabletop.jpg"/>
           </section>
           <section data-transition="none">
@@ -92,13 +107,13 @@
         </section>
         <section>
           <section data-transition="none">
-            <h2>Vertical Display</h2>
-            <p>Gesture Salience Detection [ICMI'13]</p>
+            <h2>Vertical Orientation</h2>
+            <h3>Salience Detection for Gesture [ICMI'13]</h3>
             <img src="media/gesture_salience.png"/>
           </section>
           <section data-transition="none">
-            <h2>Vertical Display</h2>
-            <p>Gesture Salience Detection [ICMI'13]</p>
+            <h2>Vertical Orientation</h2>
+            <h3>Salience Detection for Gesture [ICMI'13]</h3>
             <video data-autoplay>
             <source src="media/video/chairgest_handtracking.mp4" type="video/mp4">
             </video>
@@ -109,17 +124,17 @@
             <img src="media/system_overview_feature.jpg"/>
           </section>
           <section>
-            <h2>Feature Vector</h2>
+            <h2>Features</h2>
             <ul>
-              <li>Motion feature
+              <li>Motion features
                 <ul>
                   <li>Relative position, velocity, acceleration</li>
                 </ul>
               </li>
-              <li>Hand pose feature
+              <li>Hand pose features
                 <ul>
                   <li>Histogram of oriented gradients (HOG) from depth data</li>
-                  <li>Principal component analysis (PCA) dimention reduction</li>
+                  <li>Principal component analysis (PCA) dimension reduction</li>
                 </ul>
               </li>
             </ul>
@@ -128,33 +143,17 @@
           <section>
             <img src="media/hog.jpg"/>
           </section>
-          <section data-transition="none">
-            <h2>Feature Vector</h2>
-            <div>
-            $$\underline{x}_t = \left[ \begin{array}{c}
-            \underline{x}_t^M \\
-            \underline{x}_t^H \\ \end{array}\right] \in \mathbb{R}^d$$
-            </div>
-          </section>
         </section>
         <section>
           <section>
             <img src="media/system_overview_recognition.jpg"/>
           </section>
           <section>
-            <h2>Gesture Recognition</h2>
+            <h2>Real-time  Gesture Recognition</h2>
             <ul>
-              <li>Offline recognition [ICMI'13]
-              <ul>
-                <li>Segmentation</li>
-                <li>Classification</li>
-              </ul>
-              <li class="fragment grow">Online real-time recognition [VL/HCC'14]
-                <ul>
-                  <li><em>Simultaneous</em> segmentation and recognition</li>
-                  <li>Unified probabilistic model</li>
-                </ul>
-              </li>
+              <li>Model: <em>unified</em> probabilistic model</li>
+              <li>Training: learn parameters by examples</li>
+              <li>Inference: online <em>simultaneous</em> segmentation and recognition</li>
             </ul>
           </section>
           <section>
@@ -163,12 +162,12 @@
               <li>Previous work
                 <ul>
                   <li><em>Path</em> gestures: HMM or HCRF</li>
-                  <li><em>Pose</em> gestures: HOG and SVM</li>
+                  <li><em>Pose</em> gestures: Nearest Neighbor and SVM</li>
                 </ul>
               </li>
               <li class="fragment">Possible approaches to combine both 
                 <ul>
-                  <li>Classify form first and use different methods
+                  <li>Classify form first and use different methods 
                     <ul>
                       <li class="fragment"><em class="highlight-red">Make early decistions that are hard to correct later</em></li>
                     </ul>
@@ -181,15 +180,13 @@
                   </li>
                 </ul>
               </li>
-              <li class="fragment"><em class="highlight-green">Unified probabilistic model 
-                based on hierarchical HMM</em>
+              <li class="fragment">Unified probabilistic model 
+                based on hierarchical HMM
                 <ul>
-                  <li><em class="highlight-green">Different topologies for
-                    different <em>forms</em></em></li>
-                  <li><em class="highlight-green">Comparable probabilities
-                  </em></li>
-                  <li><em class="highlight-green">Make soft decisions and propagate posterior probabilities</em>
-                  <li><em class="highlight-green">Until a response is required according to gesture <em>flow</em></em></li>
+                  <li>Comparable probabilities</li>
+                  <li>Different topologies for different <em>forms</em></li>
+                  <li>Make soft decisions and propagate probabilities
+                  <li>Until a response is required according to gesture <em>flow</em></li>
                 </ul>
               </li>
             </ul>
@@ -197,36 +194,31 @@
         </section>
         <section>
           <section data-transition="none">
-          <h2>Hierarchical Hidden Markov Model</h2>
+          <h2>Hierarchical HMM</h2>
           <img src="media/phase_hmm.jpg"/>
           </section>
           <section data-transition="none">
-          <h2>Hierarchical Hidden Markov Model</h2>
+          <h2>Hierarchical HMM</h2>
           <img src="media/phase_hhmm.jpg"/>
           </section>
           <section data-transition="none">
-          <h2>Hierarchical Hidden Markov Model</h2>
+          <h2>Hierarchical HMM</h2>
           <img src="media/phase_hhmm_obs.jpg"/>
           </section>
           <section data-transition="none">
-          <h2>Hierarchical Hidden Markov Model</h2>
-          <p>Combine different gestures</p>
+          <h2>Hierarchical HMM</h2>
           <img src="media/combined.jpg"/>
           </section>
         </section>
         <section>
-          <section>
-            <h2>Unified Model</h2>
-            <ul>
-              <li>Train one model per gesture: <em>path</em> and <em>pose</em> gestures</li>
-                <ul>
-                  <li>With different topologies</li>
-                </ul>
-              </li>
-              <li>Combined the model into a HHMM and flatten into HMM</li>
-              <li>Fast online inference</li>
-            </ul>
-          </section>
+          <h2>Unified Model</h2>
+          <ul>
+            <li>Different topologies for <em>path</em> and <em>pose</em> gestures</li>
+            <li>Combined into a HHMM and flatten into HMM</li>
+            <li>Fast online inference</li>
+          </ul>
+        </section>
+        <section>
           <section data-transition="none">
             <h2>Path Gestures</h2>
             <img src="media/phase_hhmm_obs.jpg"/>
@@ -234,10 +226,6 @@
           <section data-transition="none">
             <h2>Path Gestures</h2>
             <img src="media/embedded.jpg"/>
-          </section>
-          <section data-transition="none">
-            <h2>Path Gestures</h2>
-            <img src="media/embedded_prob.jpg"/>
           </section>
           <section data-transition="none">
             <h2>Feature Distributions - Motion</h2>
@@ -308,7 +296,7 @@
               <li>Training strategies
               <ul>
                 <li>Expectation-maximiation for GMM</li>
-                <li>Use Bayesian Information Criterion (BIC) to choose the number of mixtures.</li>
+                <li>Use Bayesian Information Criterion (BIC) to choose the number of mixtures</li>
               </ul>
               </li>
             </ul>
@@ -334,42 +322,16 @@
         </section>
         <section>
           <section data-transition="none">
-          <h2>Online Inference</h2>
+          <h2>Online Inference: Fixed-Lag Smoothing</h2> 
           <img src="media/classification.jpg"/>
           </section>
           <section data-transition="none">
-          <h2>Online Inference</h2>
+          <h2>Online Inference: Fixed-Lag Smoothing</h2>
           <img src="media/filtering.jpg"/>
           </section>
           <section data-transition="none">
-          <h2>Online Inference</h2>
+          <h2>Online Inference: Fixed-Lag Smoothing</h2>
           <img src="media/fixed_lag.jpg"/>
-          </section>
-        </section>
-        <section>
-          <section data-transition="none">
-            <h2>Fixed-Lag Smoothing</h2>
-            <img src="media/forward1.jpg"/>
-          </section>
-          <section data-transition="none">
-            <h2>Fixed-Lag Smoothing</h2>
-            <img src="media/forward2.jpg"/>
-          </section>
-          <section data-transition="none">
-            <h2>Fixed-Lag Smoothing</h2>
-            <img src="media/forward3.jpg"/>
-          </section>
-          <section data-transition="none">
-            <h2>Fixed-Lag Smoothing</h2>
-            <img src="media/backward.jpg"/>
-          </section>
-          <section data-transition="none">
-            <h2>Fixed-Lag Smoothing</h2>
-            <img src="media/gamma.jpg"/>
-          </section>
-          <section data-transition="none">
-            <h2>Fixed-Lag Smoothing</h2>
-            <img src="media/gamma2.jpg"/>
           </section>
           <section data-transition="none">
             <h2>Fixed-Lag Smoothing</h2>
@@ -380,9 +342,14 @@
           </section>
         </section>
         <section>
-          <video muted preload="auto">
-          <source src="media/video/dataset.mp4" type="video/mp4"> 
-          </video>
+          <section data-transition="none">
+            <img src="media/dataset.JPG"/>
+          </section>
+          <section data-transition="none">
+            <video muted preload="auto" controls data-autoplay>
+            <source src="media/video/dataset.mp4" type="video/mp4"> 
+            </video>
+          </section>
         </section>
         <section>
           <section data-transition="none">
@@ -409,6 +376,8 @@
           <h2>Simultaneous Segmentation and Recognition - Discrete Flow</h2>
           <img src="media/circle6.jpg"/>
           </section>
+        </section>
+        <section>
           <section data-transition="none">
           <h2>Simultaneous Segmentation and Recognition - Continuous Flow</h2>
           <img src="media/point1.jpg"/>
@@ -429,11 +398,13 @@
         <section>
           <h2>Evaluation</h2>
           <ul>
-            <li>Hybrid performance metrics</li>
+            <li>Hybrid performance metrics
               <ul>
                 <li>Event based metric for discrete flow gestures</li>
                 <li>Frame based metric for continuous flow gestures</li>
               </ul>
+            </li>
+            <li>Average \(F_1\) for online recognition: 80.5%</li>
           </ul>
         </section>
         <section>
@@ -455,11 +426,19 @@
           <img src="media/f1_lag.png"/>
         </section>
         <section>
+          <h2>Extensibility</h2>
+          <ul>
+            <li>Fast training time</li>
+            <li>Easy to add new gestures</li>
+          </ul>
+        </section>
+        <section>
           <h2>Future Work</h2>
           <ul>
             <li>Two-hand gestures</li>
             <li>Improve pose gesture recognition</li>
             <li>Improve user independent base model</li>
+            <li>Combine different sensors</li>
           </ul>
         </section>
         <section>
@@ -474,20 +453,46 @@
           <li>Machine learning
             <ul>
               <li>Probabilistic model that unifies recognition of two forms of gestures</li>
-              <li>Use hidden states to identify gesture phases</li>
+              <li>Hidden state -&gt; gesture phase -&gt; response timing</li>
               <li>Efficient online inference to achieve a balance between accuracy and responsiveness</li>
-            </ul>
-          </li>
-          <li class="fragment">Other work
-            <ul>
-              <li>Gesture spotting [ICMI'13]</li>
-              <li>User adaptation for touchscreen input [CHI'13]</li>
             </ul>
           </li>
         </ul>
         </section>
         <section>
           <h2>Acknowledgements</h2>
+          <ul>
+            <li>Prof. Randall Davis</li>
+            <li>Prof. Antonio Torralba and Prof. Bill Freeman</li>
+            <li>Group members: Andrew, Jeremy, Yale, Kai, William, Nira, Aaron, Chih-yu, Sonya, Tom</li>
+            <li>Friends and family</li>
+          </ul>
+        </section>
+        <section>
+          <section data-transition="none">
+            <h2>Fixed-Lag Smoothing</h2>
+            <img src="media/forward1.jpg"/>
+          </section>
+          <section data-transition="none">
+            <h2>Fixed-Lag Smoothing</h2>
+            <img src="media/forward2.jpg"/>
+          </section>
+          <section data-transition="none">
+            <h2>Fixed-Lag Smoothing</h2>
+            <img src="media/forward3.jpg"/>
+          </section>
+          <section data-transition="none">
+            <h2>Fixed-Lag Smoothing</h2>
+            <img src="media/backward.jpg"/>
+          </section>
+          <section data-transition="none">
+            <h2>Fixed-Lag Smoothing</h2>
+            <img src="media/gamma.jpg"/>
+          </section>
+          <section data-transition="none">
+            <h2>Fixed-Lag Smoothing</h2>
+            <img src="media/gamma2.jpg"/>
+          </section>
         </section>
       </div>
     </div>
@@ -507,7 +512,7 @@
         ],
 
         gesture: {
-          mirror: true,
+          mirror: false,
           autoCenter: true
         }
       });

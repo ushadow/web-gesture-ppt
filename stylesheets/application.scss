@@ -28,13 +28,21 @@
 }
 
 em.highlight-red {
-  color: #ff2c2d;
+  color: #8c001a;
 }
 
 em.highlight-green {
-  color: #17ff2e;
+  color: #006400;
 }
 
 em {
-  color: #0aebff;
+  color: #1b91ff;
+}
+
+.reveal section li:last-child {
+  margin-bottom: 0.5em;
+}
+
+.reveal section h1 {
+  margin-bottom: 1em;
 }
