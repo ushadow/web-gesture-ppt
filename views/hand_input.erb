@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, 
     maximum-scale=1.0, user-scalable=no"/>
     <link rel="stylesheet" href="application.css" type="text/css" />
-    <link rel="stylesheet" href="css/reveal.css"/>
-    <link rel="stylesheet" href="css/theme/simple.css" id="theme"/>
+    <link rel="stylesheet" href="css/reveal.css" type="text/css" />
+    <link rel="stylesheet" href="css/theme/simple.css" id="theme" type="text/css" />
     <script src="js/jquery.js" type="text/javascript"></script>
     <script src="application.js" type="text/javascript"></script>
   </head>
@@ -63,11 +63,18 @@
           </section>
         </section>
         <section>
-          <h2>Temporal Model of Gestures</h2>
-          <h3>Pre-stroke -&gt; Nucleus -&gt; Post-stroke</h3>
-          <video width="610" muted controls preload="auto">
-          <source src="media/video/gesture_temporal.mp4" type="video/mp4"> 
-          </video>
+          <section>
+            <h2>Temporal Model of Gestures</h2>
+            <h3>Pre-stroke -&gt; Nucleus -&gt; Post-stroke</h3>
+            <video width="610" muted controls preload="auto">
+            <source src="media/video/gesture_temporal.mp4" type="video/mp4"> 
+            </video>
+          </section>
+          <section>
+            <video width="910" muted controls preload="auto" data-autoplay>
+            <source src="media/video/demo_talk.mp4" type="video/mp4"> 
+            </video>
+          </section>
         </section>
         <section>
         <h2>Contributions</h2>
@@ -106,7 +113,7 @@
             <img src="media/handtracking.JPG"/>
           </section>
           <section data-transition="none">
-            <video muted controls data-autoplay>
+            <video muted controls data-autoplay width="862">
             <source src="media/video/pointing.mp4" type="video/mp4">
             </video>
           </section>
@@ -120,7 +127,7 @@
           <section data-transition="none">
             <h2>Vertical Orientation</h2>
             <h3>Salience Detection for Gesture [ICMI'13]</h3>
-            <video data-autoplay muted controls>
+            <video data-autoplay muted controls width="912">
             <source src="media/video/chairgest_handtracking.mp4" type="video/mp4">
             </video>
           </section>
@@ -175,7 +182,7 @@
                 <ul>
                   <li>Classify form first and use different methods 
                     <ul>
-                      <li class="fragment"><em class="highlight-red">Make early decistions that are hard to correct later</em></li>
+                      <li class="fragment"><em class="highlight-red">Make early decisions that are hard to correct later</em></li>
                     </ul>
                   </li>
                   <li class="fragment">Apply different methods concurrently 
@@ -200,19 +207,19 @@
         </section>
         <section>
           <section data-transition="none">
-          <h2>Hierarchical HMM</h2>
-          <h3>State Transition Diagram</h3>
+          <h2>Temporal Modeling of Gestures</h2>
           <img src="media/phase_hmm.jpg"/>
+          <small>State Transition Diagram</small>
           </section>
           <section data-transition="none">
-          <h2>Hierarchical HMM</h2>
-          <h3>State Transition Diagram</h3>
+          <h2>Temporal Modeling of Gestures</h2>
           <img src="media/combined.jpg"/>
+          <small>State Transition Diagram</small>
           </section>
           <section data-transition="none">
           <h2>Hierarchical HMM</h2>
-          <h3>State Transition Diagram</h3>
           <img src="media/phase_hhmm_obs.jpg"/>
+          <small>State Transition Diagram</small>
           </section>
         </section>
         <section>
@@ -235,20 +242,6 @@
             <h2>Path Gestures</h2>
             <img src="media/embedded_prob.jpg"/>
           </section>
-          <section data-transition="none">
-            <h2>Feature Distributions - Hand Pose</h2>
-            <img src="media/hist_pca.jpg"/>
-          </section>
-          <section data-transition="none">
-            <h2>Feature Distributions - Motion</h2>
-            <img src="media/motion_hist.jpg"/>
-          </section>
-          <section data-transition="none">
-            <h2>Path Gestures</h2>
-            <img src="media/embedded_gmm.jpg"/>
-          </section>
-        </section>
-        <section>
           <section>
             <h2>Path Gesture</h2>
             <ul>
@@ -259,37 +252,6 @@
                   <ol>
                     <li>Viterbi alignment</li>
                     <li>Baum-Welch expectation maximization</li>
-                  </ol>
-                </li>
-              </ul>
-            </ul>
-          </section>
-          <section data-transition="none">
-            <img src="media/training1.jpg"/>
-            <small>Graphical Model Representation of HMM</small>
-          </section>
-          <section data-transition="none">
-            <img src="media/training2.jpg"/>
-            <small>Graphical Model Representation of HMM</small>
-          </section>
-          <section data-transition="none">
-            <img src="media/training3.jpg"/>
-            <small>Graphical Model Representation of HMM</small>
-          </section>
-          <section data-transition="none">
-            <h2>Path Gesture</h2>
-            <ul>
-              <li>Training strategies</li>
-              <ul>
-                <li>Embedded training</li>
-                <li>Two-pass training
-                  <ol>
-                    <li>Viterbi alignment</li>
-                    <li>Baum-Welch expectation maximization
-                      <ul>
-                        <li>Maximum likelihood estimate </li>
-                      </ul>
-                    </li>
                   </ol>
                 </li>
               </ul>
@@ -328,10 +290,6 @@
           </section>
           <section data-transition="none">
           <h2>Combining and Flattening HMM</h2>
-          <img src="media/combined_hmm1.jpg"/>
-          </section>
-          <section data-transition="none">
-          <h2>Combining and Flattening HMM</h2>
           <img src="media/combined_hmm2.jpg"/>
           </section>
           <section data-transition="none">
@@ -349,53 +307,35 @@
         </section>
         <section>
           <section data-transition="none">
-            <h2>Online Inference: Fixed-Lag Smoothing</h2> 
+            <h2>Online Inference</h2>
+            <h3>Fixed-Lag Smoothing</h3>
+          </section>
+          <section data-transition="none">
+            <h2>Online Inference</h2>
+            <h3>Fixed-Lag Smoothing</h3>
             <img src="media/classification.jpg"/>
           </section>
           <section data-transition="none">
-            <h2>Online Inference: Fixed-Lag Smoothing</h2>
+          <h2>Online Inference</h2>
+          <h3>Fixed-Lag Smoothing</h3>
             <img src="media/filtering.jpg"/>
           </section>
           <section data-transition="none">
-            <h2>Online Inference: Fixed-Lag Smoothing</h2>
+          <h2>Online Inference</h2>
+          <h3>Fixed-Lag Smoothing</h3>
             <img src="media/fixed_lag.jpg"/>
           </section>
         </section>
         <section>
-          <section data-transition="none">
-            <h2>Fixed-Lag Smoothing</h2>
-            <img src="media/forward1.jpg"/>
+          <section>
+          <h2>Simultaneous Segmentation and Recognition</h2>
+          <h3>hidden state -&gt; gesture phase -&gt; gesture</h3>
           </section>
-          <section data-transition="none">
-            <h2>Fixed-Lag Smoothing</h2>
-            <img src="media/forward2.jpg"/>
-          </section>
-          <section data-transition="none">
-            <h2>Fixed-Lag Smoothing</h2>
-            <img src="media/forward3.jpg"/>
-          </section>
-          <section data-transition="none">
-            <h2>Fixed-Lag Smoothing</h2>
-            <img src="media/backward.jpg"/>
-          </section>
-          <section data-transition="none">
-            <h2>Fixed-Lag Smoothing</h2>
-            <img src="media/gamma.jpg"/>
-          </section>
-        </section>
-        <section data-transition="none">
-          <h2>Fixed-Lag Smoothing</h2>
-          <ul>
-            <li>Time complexity: \(O(H^2l)\)</li>
-            <li>Space complexity: \(O(Hl)\)</li>
-          </ul>
-        </section>
-        <section>
           <section data-transition="none">
             <img src="media/dataset.JPG"/>
           </section>
           <section data-transition="none">
-            <video muted preload="auto" controls data-autoplay>
+            <video width="911" muted preload="auto" controls data-autoplay>
             <source src="media/video/dataset.mp4" type="video/mp4"> 
             </video>
           </section>
@@ -453,7 +393,7 @@
                 <li>Frame based metric for continuous flow gestures</li>
               </ul>
             </li>
-            <li>Average \(F_1\) for online recognition: 80.5%</li>
+            <li>Average \(F_1\) for online recognition: 80.6%</li>
             <li>Average response time: 0.3s before coming to rest</li>
           </ul>
         </section>
@@ -496,7 +436,6 @@
             <li>Two-hand gestures</li>
             <li>Improve pose gesture recognition</li>
             <li>Improve user independent base model</li>
-            <li>Combine different sensors</li>
           </ul>
         </section>
         <section>
@@ -526,10 +465,16 @@
             <li>Friends and family</li>
           </ul>
         </section>
+        <section>
+          <section>
+          <h2>Problem with Frame-based Evaluation</h2>
+          <img src="media/fragment.png"/>
+          </section>
+        </section>
       </div>
     </div>
-    <script src="js/reveal.min.js"></script>
-    <script src="js/head.min.js"></script>
+    <script src="js/reveal.min.js" type="text/javascript"></script>
+    <script src="js/head.min.js" type="text/javascript"></script>
     <script>
       Reveal.initialize({
         slideNumber: true,

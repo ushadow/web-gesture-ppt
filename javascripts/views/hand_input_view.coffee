@@ -93,7 +93,6 @@ class HandInputView
     elem = document.elementFromPoint(rect.left, rect.top)
     regex = /section/gi
     elem = @_upToElement elem, regex
-    console.log elem
     if elem and elem.nodeName.match regex
         h = parseInt(elem.getAttribute('data-index-h'), 10)
         v = parseInt(elem.getAttribute('data-index-v'), 10)
@@ -157,10 +156,7 @@ class HandInputView
 
     @_showMultiplier video.parentNode
     videoWidth = video.width
-    console.log "videoWidth = #{videoWidth}"
-    console.log "pixelStep = #{pixelStep}"
     timeStep = pixelStep * video.duration * @_multiplier / videoWidth
-    console.log "timeStep = #{timeStep}"
     video.currentTime += timeStep
     if video.paused then video.play()
 
