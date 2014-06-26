@@ -45,7 +45,7 @@ class HandInputController
   
   _onGestureEvent: (ge) ->
     switch ge.eventType
-      when 'StartPostStroke'
+      when 'StopNucleus'
         switch ge.gesture
           when 'Swipe_Left'
             if @_config.mirror then Reveal.right() else Reveal.left()
